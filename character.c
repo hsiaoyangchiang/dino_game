@@ -31,8 +31,14 @@ void cactus_init(struct Cactus *c, int size, ALLEGRO_BITMAP *img1, ALLEGRO_BITMA
 		c[i].speed = 5;
 		c[i].boundy_x = 18;
 		c[i].boundy_y = 18;
-        if(i%2) c[i].image = img1;
-        else c[i].image = img2;
+        if(i%2) {
+			c[i].type = 1;
+			c[i].image = img1;
+		}
+        else {
+			c[i].image = img2;
+			c[i].type =0;
+		}
         // printf("%p\n", c[i].image);
 	}
 }
@@ -54,7 +60,11 @@ void cactus_start(struct Cactus *c, int size){
 			{
 				c[i].live = true;
 				c[i].x = WIDTH;
-				c[i].y = 300-90;
+				if(c[i].type){
+					c[i].y = 300-65;
+				}else{
+					c[i].y = 300-85;
+				}
                 //printf("%d\n", c[i].x);
                 //printf("%d\n", c[i].y);
 				break;
@@ -77,7 +87,7 @@ void cactus_collide(struct Cactus *c, int size){
     for(int i = 0; i < size; i++){
 		if(c[i].live)
 		{
-			if(c[i].x - dino.x < dino.boundy_x && c[i].y < dino.y)
+			if(c[i].x -10 <  dino.width && 300-al_get_bitmap_height(c[i].image) < dino.y+dino.height&& c[i].x+al_get_bitmap_width(c[i].image)< 5)
 				// c[i].x + c[i].boundy_x > p[i].boundy_x &&
 				// c[i].y - c[i].boundy_y < p[i].y + p[i].boundy_y &&
 				// c[i].y + c[i].boundy_y > p[i].y - p[i].boundy_y)

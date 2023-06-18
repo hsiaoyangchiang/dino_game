@@ -8,8 +8,10 @@ ALLEGRO_BITMAP *img_catus1 = NULL;
 ALLEGRO_BITMAP *img_catus2 = NULL;
 ALLEGRO_BITMAP *img_floor = NULL;
 ALLEGRO_BITMAP *img_end = NULL;
+ALLEGRO_BITMAP *img_win = NULL;
 ALLEGRO_TIMER *timer;
-
+ALLEGRO_FONT *font_game = NULL;
+ALLEGRO_FONT *font_end = NULL;
 // ALLEGRO_TIMER *timer;
 
 // menu and info
@@ -18,6 +20,7 @@ void menu_init()
     printf("menu init\n");
     img_menu = al_load_bitmap("./asset/menu.png");
     img_info = al_load_bitmap("./asset/information.png");
+    font_game = al_load_font("./font/PressStart.ttf", 24, 0);
 }
 
 void menu_draw()
@@ -51,8 +54,6 @@ void start_game_process(ALLEGRO_EVENT event)
 }
 
 
-
-
 // game scene(floor, cloud, catus, (dino))
 void game_scene_init(){
     printf("game scene init\n");
@@ -72,6 +73,8 @@ void game_scene_draw(){
     // al_draw_bitmap(img_floor, 0, 300, 0);
     // al_draw_bitmap(img_catus1, 700, 300-99, 0);
     // al_draw_bitmap(img_catus2, 800, 300-99, 0);
+    al_draw_textf(font_game, al_map_rgb(83, 83, 83), 1300, 50, ALLEGRO_ALIGN_RIGHT, "score: %d" , score );
+    score++;
     DrawBackground(&FLOOR);
     DrawBackground(&C1);
     DrawBackground(&C2);
@@ -109,10 +112,19 @@ void DrawBackground(struct Background *back){
 // game over window
 void end_game_init(){
     img_end = al_load_bitmap("./asset/game_over.png");
+    img_win = al_load_bitmap("./asset/win.png");
+    font_end = al_load_font("./font/PressStart.ttf", 70, 0);
 }
 
 void end_game_draw(){
     al_draw_bitmap(img_end, 0, 0, 0);
+   // printf("%d", score);
+    //al_draw_textf(font_game, al_map_rgb(83, 83, 83), 1000, 100, ALLEGRO_ALIGN_CENTRE, "score: %d" , score );
+}
+void win_game_draw(){
+    al_draw_bitmap(img_win, 0, 0, 0);
+   // printf("%d", score);
+    //al_draw_textf(font_game, al_map_rgb(83, 83, 83), 1000, 100, ALLEGRO_ALIGN_CENTRE, "score: %d" , score );
 }
 
 void end_game_process(ALLEGRO_EVENT event)
@@ -143,10 +155,12 @@ void game_scene_destroy(){
     al_destroy_bitmap(img_floor);
     al_destroy_bitmap(img_cloud1);
     al_destroy_bitmap(img_cloud2);
+    al_destroy_font(font_game);
     // dino_destroy();
 }
 
 void end_scene_destroy(){
     al_destroy_bitmap(img_end);
+    al_destroy_font(font_end);
     printf("end scene destroy\n");
 }

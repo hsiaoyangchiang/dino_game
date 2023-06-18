@@ -15,11 +15,14 @@
 extern const float FPS;
 extern const int WIDTH;
 extern const int HEIGHT;
+extern int score;
+extern int LEVEL;
 //extern const int NUM_CATUS;
 extern bool key_state[ALLEGRO_KEY_MAX];
 extern bool judge_to_game;
 extern bool judge_to_info;
 extern bool judge_to_end;
+extern bool judge_to_finished_game;
 extern bool render;
 struct Background{
 	float x;
@@ -47,6 +50,7 @@ struct Cactus{
 	int speed;
 	int boundy_x;
 	int boundy_y;
+	int type;
 	ALLEGRO_BITMAP *image;
 };
 extern struct Cactus cactus[NUM_CACTUS];

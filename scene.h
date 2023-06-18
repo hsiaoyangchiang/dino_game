@@ -22,5 +22,7 @@ void game_scene_destroy();
 
 void end_game_init();
 void end_game_process(ALLEGRO_EVENT event);
+//int close_game_process(ALLEGRO_EVENT event);
 void end_game_draw();
+void win_game_draw();
 void end_scene_destroy();

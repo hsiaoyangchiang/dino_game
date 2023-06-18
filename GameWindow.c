@@ -2,6 +2,7 @@
 
 bool draw = false;
 int window = 1;
+int status = 0;
 // window 1 = menu
 // window 2 = info
 // window 3 = game
@@ -108,8 +109,13 @@ int process_event(){
         //end_game_process(event);
         //*************************************************************
         dino_process(event);
+    }if(window == 4){
+        if (event.type == ALLEGRO_EVENT_KEY_UP){
+            if (event.keyboard.keycode == ALLEGRO_KEY_SPACE){
+                return GAME_TERMINATE;
+            }
+        }
     }
-
 
     // Shutdown our program
     if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
@@ -117,14 +123,17 @@ int process_event(){
     }
 
     else if(event.type == ALLEGRO_EVENT_TIMER){
-        if(event.timer.source == fps) draw = true;
+        if(event.timer.source == fps){
+            draw = true;
+        } 
         UpdateBackground(&FLOOR);
         UpdateBackground(&C1);
         UpdateBackground(&C2);
         cactus_start(cactus, NUM_CACTUS);
         cactus_update(cactus, NUM_CACTUS);
-        cactus_collide(cactus, NUM_CACTUS, &dino);
+        cactus_collide(cactus, NUM_CACTUS);
 		render = true;
+
     }
 
     if(draw) game_update();
@@ -161,11 +170,9 @@ void game_update(){
             judge_to_info = false;
             window = 3;
         }
-
     }
     if(judge_to_end){
         if( window == 3){
-
             judge_to_end = false;
             game_scene_destroy();
             cactus_destroy();
@@ -174,9 +181,15 @@ void game_update(){
         }
     }
     if(window==3){
-            dino_update();
-
+        dino_update();
+        if(dino.life == 1 && score >= LEVEL) {
+            end_game_init();
+            game_scene_destroy();
+            cactus_destroy();
+            window  = 4;
+            status = 1;
         }
+    }
 }
 
 void game_draw(){
@@ -197,7 +210,8 @@ void game_draw(){
         //printf("show game\n");
     }else if( window == 4 ){
         // printf("show game\n");
-        end_game_draw();
+        if(status) win_game_draw();
+        else end_game_draw();
         al_flip_display();
     }
 

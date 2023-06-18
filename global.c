@@ -1,6 +1,7 @@
 #include "global.h"
 
 // variables for global usage
+enum{low = 200, medium = 500, high = 10000};
 const float FPS = 60.0;
 const int WIDTH = 1400;
 const int HEIGHT = 450;
@@ -12,7 +13,11 @@ bool key_state[ALLEGRO_KEY_MAX] = {false};
 bool judge_to_info = false;
 bool judge_to_game = false;
 bool judge_to_end = false;
+bool judge_to_finished_game = false;
 bool render = false;
+int score = 0;
+int LEVEL = low;
+
 
 struct Background FLOOR;
 struct Background C1;
