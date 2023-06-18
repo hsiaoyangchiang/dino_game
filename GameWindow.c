@@ -110,8 +110,9 @@ int process_event(){
         //*************************************************************
         dino_process(event);
     }if(window == 4){
-        if (event.type == ALLEGRO_EVENT_KEY_UP){
+        if (event.type == ALLEGRO_EVENT_KEY_DOWN){
             if (event.keyboard.keycode == ALLEGRO_KEY_SPACE){
+                draw = false;
                 return GAME_TERMINATE;
             }
         }

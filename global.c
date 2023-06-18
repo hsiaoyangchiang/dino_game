@@ -1,7 +1,7 @@
 #include "global.h"
 
 // variables for global usage
-enum{low = 200, medium = 500, high = 10000};
+enum{low = 200, medium = 500, tough = 10000};
 const float FPS = 60.0;
 const int WIDTH = 1400;
 const int HEIGHT = 450;
@@ -16,7 +16,7 @@ bool judge_to_end = false;
 bool judge_to_finished_game = false;
 bool render = false;
 int score = 0;
-int LEVEL = low;
+int LEVEL = tough;
 
 
 struct Background FLOOR;

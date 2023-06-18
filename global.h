@@ -9,7 +9,7 @@
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
-#define NUM_CACTUS 50 // 數字隨你改
+#define NUM_CACTUS 40 // 數字隨你改
 
 // note that you can't assign initial value here!
 extern const float FPS;

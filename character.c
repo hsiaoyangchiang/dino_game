@@ -80,6 +80,9 @@ void cactus_update(struct Cactus *c, int size)
 			c[i].x -= c[i].speed;
 
 		}
+		if(c[i].x<-60){
+            c[i].live=false;
+		}
 	}
 }
 
@@ -87,12 +90,11 @@ void cactus_collide(struct Cactus *c, int size){
     for(int i = 0; i < size; i++){
 		if(c[i].live)
 		{
-			if(c[i].x -10 <  dino.width && 300-al_get_bitmap_height(c[i].image) < dino.y+dino.height&& c[i].x+al_get_bitmap_width(c[i].image)< 5)
-				// c[i].x + c[i].boundy_x > p[i].boundy_x &&
-				// c[i].y - c[i].boundy_y < p[i].y + p[i].boundy_y &&
-				// c[i].y + c[i].boundy_y > p[i].y - p[i].boundy_y)
+			if(c[i].live&&(c[i].x-4*c[i].speed) <=10 +dino.width && 334-al_get_bitmap_height(c[i].image) < dino.y+dino.height &&(c[i].x-5*c[i].speed)+al_get_bitmap_width(c[i].image)<10)
 			{
 				dino.life = 0;
+				// printf("%d %d %d %d \n",c[i].live ,c[i].x ,10+dino.width/2, 300 - al_get_bitmap_height(c[i].image) ,dino.y+(dino.height/2));
+
                 //printf("hit the cactus\n");
 			}
 		}
